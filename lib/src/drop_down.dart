@@ -5,8 +5,8 @@ import 'app_text_field.dart';
 
 class DropDown {
 
-  /// This will give the list of data.
-  final List<SelectedListItem> data;
+  /// This will give the list of data as a callback.
+  final List<SelectedListItem> Function() data;
 
   /// This will give the call back to the selected items from list.
   final Function(List<dynamic>)? selectedItems;
@@ -97,7 +97,7 @@ class _MainBodyState extends State<MainBody> {
   @override
   void initState() {
     super.initState();
-    mainList = widget.dropDown.data;
+    mainList = widget.dropDown.data();
     _setSearchWidgetListener();
   }
 
@@ -128,7 +128,7 @@ class _MainBodyState extends State<MainBody> {
                         child: ElevatedButton(
                           onPressed: () {
                             List<SelectedListItem> selectedList =
-                                widget.dropDown.data.where((element) => element.isSelected == true).toList();
+                                widget.dropDown.data().where((element) => element.isSelected == true).toList();
                             List<dynamic> selectedNameList = [];
 
                             for (var element in selectedList) {
@@ -215,11 +215,11 @@ class _MainBodyState extends State<MainBody> {
 
   /// This helps when search enabled & show the filtered data in list.
   _buildSearchList(String userSearchTerm) {
-    final results = widget.dropDown.data
+    final results = widget.dropDown.data()
         .where((element) => element.name.toLowerCase().contains(userSearchTerm.toLowerCase()))
         .toList();
     if (userSearchTerm.isEmpty) {
-      mainList = widget.dropDown.data;
+      mainList = widget.dropDown.data();
     } else {
       mainList = results;
     }

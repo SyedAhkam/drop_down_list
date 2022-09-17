@@ -184,7 +184,7 @@ class _AppTextFieldState extends State<AppTextField> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        data: widget.cities ?? [],
+        data: () => widget.cities ?? [],
         selectedItems: (List<dynamic> selectedList) {
           List<String> list = [];
           for(var item in selectedList) {
