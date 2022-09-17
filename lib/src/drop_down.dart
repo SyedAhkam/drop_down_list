@@ -154,7 +154,10 @@ class _MainBodyState extends State<MainBody> {
                   AppTextField(
                     dropDown: widget.dropDown,
                     onTextChanged: (text) {
-                      widget.dropDown?.onSearchTextChanged?.call(text);
+                      widget.dropDown?.onSearchTextChanged?.call(text)
+                        .whenComplete(() {
+                          setState(() {});
+                        });
 
                       _buildSearchList(text);
                     },
